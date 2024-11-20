@@ -18,6 +18,17 @@ class Election
     {
         return Nominees;
     }
+
+    public Vote? CastVote(string name)
+    {
+        Nominee? nominee = Nominees.Find((nominee) => nominee.Name.ToLower() == name.ToLower());
+        if (nominee == null) return null;
+
+        Vote newVote = new Vote(nominee);
+        CastVotes.Add(newVote);
+
+        return newVote;
+    }
 }
 
 class Nominee
