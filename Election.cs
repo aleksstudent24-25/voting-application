@@ -13,11 +13,16 @@ class Election
             Nominees.Add(new Nominee(name));
         }
     }
+
+    public List<Nominee> ListNominees()
+    {
+        return Nominees;
+    }
 }
 
 class Nominee
 {
-    public string Name;
+    public string Name { get; }
 
     public Nominee(string name)
     {
@@ -27,8 +32,8 @@ class Nominee
 
 class Vote
 {
-    Nominee CastFor;
-    DateTime CastAt;
+    DateTime CastAt { get; }
+    Nominee CastFor { get; }
 
     public Vote(Nominee nominee)
     {
