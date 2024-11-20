@@ -22,4 +22,10 @@ app.MapPost("/election/vote", (VoteDTO castVote) =>
     if (voteReceipt == null) return Results.BadRequest();
     return Results.Ok(voteReceipt);
 });
+
+app.MapGet("/election", () =>
+{
+    return election.GetCurrentResult();
+});
+
 app.Run();

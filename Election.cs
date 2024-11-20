@@ -1,7 +1,7 @@
 class Election
 {
-    List<Nominee> Nominees;
-    List<Vote> CastVotes;
+    List<Nominee> Nominees { get; }
+    List<Vote> CastVotes { get; }
 
     public Election(List<string> nomineeNames)
     {
@@ -29,6 +29,12 @@ class Election
 
         return newVote;
     }
+
+    public Result GetCurrentResult()
+    {
+        Result result = new(CastVotes);
+        return result;
+    }
 }
 
 class Nominee
@@ -43,12 +49,30 @@ class Nominee
 
 class Vote
 {
-    DateTime CastAt { get; }
-    Nominee CastFor { get; }
+    public DateTime CastAt { get; }
+    public Nominee CastFor { get; }
 
     public Vote(Nominee nominee)
     {
         CastFor = nominee;
         CastAt = DateTime.Now;
+    }
+}
+
+class Result
+{
+    public Dictionary<string, int> NomineesVoteCount { get; }
+
+    public Result(List<Vote> votes)
+    {
+        NomineesVoteCount = [];
+
+        foreach (var vote in votes)
+        {
+            if (!NomineesVoteCount.ContainsKey(vote.CastFor.Name))
+                NomineesVoteCount.Add(vote.CastFor.Name, 1);
+            else
+                NomineesVoteCount[vote.CastFor.Name]++;
+        }
     }
 }
